@@ -16,15 +16,21 @@ source package: there is no build step, and the consuming site compiles it.
 
 ## Using it in a product site
 
-Add the dependency (pnpm resolves a package from a subdirectory of a git repo):
+Add the dependency. The `site-kit` branch is this directory mirrored to the
+root of a branch by `.github/workflows/publish-site-kit.yml` on every push to
+`main`, because package managers install a git dependency from the repository
+root:
 
 ```json
 {
   "devDependencies": {
-    "@office-kit/site-kit": "github:office-kit/office-kit.github.io#main&path:/packages/site-kit"
+    "@office-kit/site-kit": "github:office-kit/office-kit.github.io#site-kit"
   }
 }
 ```
+
+The lockfile pins the commit, so run `pnpm update @office-kit/site-kit` to pick
+up a newer shell.
 
 Set the product on `<html>` in `src/app.html`. This selects the accent colour:
 
