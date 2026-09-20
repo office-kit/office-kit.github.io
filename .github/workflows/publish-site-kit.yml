@@ -1,0 +1,37 @@
+name: Publish site-kit branch
+
+# The product sites install @office-kit/site-kit straight from git. pnpm's
+# `&path:` selector for a package in a subdirectory fails `--frozen-lockfile`
+# installs from a cached store (it compares the lockfile's package name with
+# the repository's root package.json), so the package is mirrored to a branch
+# where it sits at the root: `github:office-kit/office-kit.github.io#site-kit`.
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'packages/site-kit/**'
+      - '.github/workflows/publish-site-kit.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: publish-site-kit
+  cancel-in-progress: false
+
+jobs:
+  split:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@df4cb1c069e1874edd31b4311f1884172cec0e10 # v6
+        with:
+          # subtree split walks the whole history to rebuild the same commits
+          # every run, which keeps the push a fast-forward.
+          fetch-depth: 0
+
+      - name: Split packages/site-kit and push it to the site-kit branch
+        run: |
+          git subtree split --prefix=packages/site-kit -b site-kit
+          git push origin site-kit
