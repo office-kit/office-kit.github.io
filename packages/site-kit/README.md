@@ -10,6 +10,7 @@ source package: there is no build step, and the consuming site compiles it.
 | `KitFooter` | Footer with the product's links, the family's links, and the `llms.txt` entry points. |
 | `FamilyGrid` | The three libraries side by side, each in its own accent. |
 | `KitMark` | The stacked-files mark, with the current product on top. |
+| `KitSeo` | Open Graph and Twitter card tags. The card image is `og.png` at the site root; the artwork for all four sites is in [`brand/`](../../brand). |
 | `ThemeToggle` | Light / dark switch. The choice is stored under `office-kit-theme`, and because the sites share an origin it carries across all of them. |
 | `InstallCommand` | Copyable `npm i` chip. |
 | `products`, `getProduct`, `HOME_URL`, `ORG_URL` | The family registry: the only place that knows where each product lives. |

@@ -1,0 +1,243 @@
+<!doctype html>
+<!--
+  Source for the favicons and the 1200×630 social cards of all four sites.
+  Open with ?kind=og|icon and ?product=home|pptx|xlsx|docx and screenshot the
+  #art element; brand/README.md has the commands and where each file goes.
+-->
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Funnel+Display:wght@300..800&family=Funnel+Sans:wght@300..800&family=Geist+Mono:wght@400..600&display=swap"
+    />
+    <style>
+      * {
+        box-sizing: border-box;
+        margin: 0;
+      }
+
+      body {
+        background: #808080;
+      }
+
+      #art.icon {
+        width: 512px;
+        height: 512px;
+      }
+
+      /* iOS paints a transparent touch icon on black, so that variant is opaque. */
+      #art.icon.opaque {
+        background: #ffffff;
+        padding: 56px;
+      }
+
+      #art.icon svg {
+        display: block;
+        width: 100%;
+        height: 100%;
+      }
+
+      #art.og {
+        position: relative;
+        width: 1200px;
+        height: 630px;
+        overflow: hidden;
+        background: #ffffff;
+        color: #15171c;
+        font-family: 'Funnel Sans', sans-serif;
+      }
+
+      .copy {
+        position: absolute;
+        inset: 0 0 210px 0;
+        padding: 64px 80px 0;
+      }
+
+      .brand {
+        display: flex;
+        align-items: center;
+        gap: 18px;
+        font-family: 'Funnel Display', sans-serif;
+        font-size: 34px;
+        font-weight: 600;
+        letter-spacing: -0.01em;
+      }
+
+      .brand svg {
+        width: 52px;
+        height: 52px;
+      }
+
+      .brand .slash {
+        color: #a2a7b3;
+        font-weight: 400;
+      }
+
+      .brand .chip {
+        font-family: 'Geist Mono', monospace;
+        font-size: 28px;
+        font-weight: 500;
+        padding: 4px 16px;
+        border-radius: 10px;
+        color: var(--accent-ink);
+        background: var(--accent-wash);
+      }
+
+      h1 {
+        margin-top: 44px;
+        max-width: 1000px;
+        font-family: 'Funnel Display', sans-serif;
+        font-size: 78px;
+        font-weight: 600;
+        line-height: 1.04;
+        letter-spacing: -0.03em;
+      }
+
+      .band {
+        position: absolute;
+        inset: auto 0 0 0;
+        height: 210px;
+        padding: 0 80px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        background-color: var(--accent);
+        background-image:
+          linear-gradient(rgba(255, 255, 255, 0.14) 1px, transparent 1px),
+          linear-gradient(90deg, rgba(255, 255, 255, 0.14) 1px, transparent 1px);
+        background-size: 42px 42px;
+        color: #ffffff;
+      }
+
+      .install {
+        font-family: 'Geist Mono', monospace;
+        font-size: 32px;
+        padding: 18px 28px;
+        border-radius: 14px;
+        background: #101217;
+      }
+
+      .install .prompt {
+        color: var(--prompt);
+        margin-right: 14px;
+      }
+
+      .runs {
+        white-space: nowrap;
+        font-size: 30px;
+        font-weight: 500;
+      }
+
+      .family {
+        display: flex;
+        gap: 14px;
+        font-family: 'Geist Mono', monospace;
+        font-size: 34px;
+        font-weight: 500;
+      }
+
+      .family span {
+        padding: 14px 28px;
+        border-radius: 14px;
+        color: #ffffff;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="art"></div>
+    <script>
+      const PRODUCTS = {
+        pptx: {
+          accent: '#e5481f',
+          ink: '#bf3610',
+          wash: '#fdeee8',
+          prompt: '#ff8a5c',
+          headline: 'Read, edit, and write PowerPoint files in TypeScript',
+        },
+        xlsx: {
+          accent: '#168a4f',
+          ink: '#11703f',
+          wash: '#e6f4ec',
+          prompt: '#5fd39a',
+          headline: 'Read, edit, and write Excel files in TypeScript',
+        },
+        docx: {
+          accent: '#2b63d9',
+          ink: '#2453b8',
+          wash: '#e9effc',
+          prompt: '#8fb2ff',
+          headline: 'Read, edit, and write Word documents in TypeScript',
+        },
+      };
+      const STACK = ['docx', 'xlsx', 'pptx'];
+      const GAP = 0.9;
+
+      // The kit mark: three stacked files, the site's own product on top. Lower
+      // files are masked where the one above covers them, so the gap between
+      // them is transparent and the icon works on light and dark tab bars.
+      function mark(front) {
+        const order = [...STACK.filter((id) => id !== front), front];
+        // Rounded so 10 - 9 - 0.9 prints as 0.1, not 0.09999999999999998.
+        const n = (value) => Math.round(value * 100) / 100;
+        const rect = (i, grow = 0) =>
+          `x="${n(1 + i * 4.5 - grow)}" y="${n(10 - i * 4.5 - grow)}" width="${n(15 + grow * 2)}" height="${n(15 + grow * 2)}" rx="${n(3.5 + grow)}"`;
+        const masks = order
+          .slice(0, -1)
+          .map(
+            (_, i) =>
+              `<mask id="m${i}" maskUnits="userSpaceOnUse" x="0" y="0" width="26" height="26"><rect width="26" height="26" fill="#fff"/><rect ${rect(i + 1, GAP)} fill="#000"/></mask>`,
+          )
+          .join('');
+        const files = order
+          .map(
+            (id, i) =>
+              `<rect ${rect(i)} fill="${PRODUCTS[id].accent}"${i < order.length - 1 ? ` mask="url(#m${i})"` : ''}/>`,
+          )
+          .join('');
+        return `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 26 26"><defs>${masks}</defs>${files}</svg>`;
+      }
+
+      const params = new URLSearchParams(location.search);
+      const kind = params.get('kind') ?? 'og';
+      const id = params.get('product') ?? 'home';
+      const product = PRODUCTS[id];
+      const front = product ? id : 'pptx';
+      const art = document.getElementById('art');
+
+      if (kind === 'icon') {
+        art.className = params.has('opaque') ? 'icon opaque' : 'icon';
+        art.innerHTML = mark(front);
+        // Lets a script read the exact SVG that was drawn and save it as favicon.svg.
+        art.dataset.svg = mark(front);
+      } else {
+        art.className = 'og';
+        art.style.setProperty('--accent', product ? product.accent : '#101217');
+        art.style.setProperty('--accent-ink', product ? product.ink : '#15171c');
+        art.style.setProperty('--accent-wash', product ? product.wash : '#f0f1f4');
+        art.style.setProperty('--prompt', product ? product.prompt : '#ffffff');
+        art.innerHTML = product
+          ? `<div class="copy">
+               <div class="brand">${mark(front)}<span>Office Kit</span><span class="slash">/</span><span class="chip">${id}</span></div>
+               <h1>${product.headline}</h1>
+             </div>
+             <div class="band">
+               <div class="install"><span class="prompt">$</span>npm i @office-kit/${id}</div>
+               <div class="runs">Runs in Node and the browser</div>
+             </div>`
+          : `<div class="copy">
+               <div class="brand">${mark(front)}<span>Office Kit</span></div>
+               <h1>Read, edit, and write Office files in TypeScript</h1>
+             </div>
+             <div class="band">
+               <div class="family">${STACK.toReversed()
+                 .map((p) => `<span style="background:${PRODUCTS[p].accent}">.${p}</span>`)
+                 .join('')}</div>
+               <div class="runs">Runs in Node and the browser</div>
+             </div>`;
+      }
+    </script>
+  </body>
+</html>

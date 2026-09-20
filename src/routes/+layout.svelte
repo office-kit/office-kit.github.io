@@ -1,6 +1,6 @@
 <script lang="ts">
   import '@office-kit/site-kit/site.css';
-  import { KitFooter, KitHeader, products, type NavLink } from '@office-kit/site-kit';
+  import { KitFooter, KitHeader, KitSeo, products, type NavLink } from '@office-kit/site-kit';
 
   type Props = {
     children?: import('svelte').Snippet;
@@ -10,6 +10,11 @@
 
   const links: NavLink[] = products.map((p) => ({ label: p.id, href: p.href }));
 </script>
+
+<KitSeo
+  title="Office Kit: read, edit, and write Office files in TypeScript"
+  description="TypeScript libraries that read, edit, and write PowerPoint, Excel, and Word files in Node and the browser."
+/>
 
 <a class="skip" href="#main">Skip to content</a>
 
