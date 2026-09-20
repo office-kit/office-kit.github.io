@@ -120,6 +120,7 @@
         <ul class="product-links">
           <li><a href={p.href}>Documentation</a></li>
           <li><a href="{p.href}playground">Playground</a></li>
+          <li><a href="{p.href}repl">REPL</a></li>
           <li><a href={p.repo}>GitHub</a></li>
           <li><a href="https://www.npmjs.com/package/{p.pkg}">npm</a></li>
         </ul>
