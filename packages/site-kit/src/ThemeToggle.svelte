@@ -1,5 +1,13 @@
 <script lang="ts">
   import { onMount } from 'svelte';
+  import { KIT_MESSAGES, type KitLocale } from './messages';
+
+  type Props = {
+    /** The page's language for the shell's own words; English by default. */
+    locale?: KitLocale;
+  };
+
+  const { locale = 'en' }: Props = $props();
 
   const STORAGE_KEY = 'office-kit-theme';
 
@@ -26,7 +34,7 @@
   type="button"
   class="toggle"
   onclick={toggle}
-  aria-label={dark ? 'Switch to light theme' : 'Switch to dark theme'}
+  aria-label={dark ? KIT_MESSAGES[locale].lightTheme : KIT_MESSAGES[locale].darkTheme}
 >
   <svg width="20" height="20" viewBox="0 0 20 20" aria-hidden="true">
     {#if dark}

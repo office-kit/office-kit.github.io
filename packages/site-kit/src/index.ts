@@ -5,5 +5,7 @@ export { default as KitHeader } from './KitHeader.svelte';
 export { default as KitMark } from './KitMark.svelte';
 export { default as KitSeo } from './KitSeo.svelte';
 export { default as ThemeToggle } from './ThemeToggle.svelte';
+export { KIT_MESSAGES } from './messages';
+export type { KitLocale, KitMessages } from './messages';
 export { HOME_URL, ORG_URL, getProduct, products } from './products';
 export type { NavLink, Product, ProductId } from './products';

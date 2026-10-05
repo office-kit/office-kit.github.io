@@ -5,6 +5,7 @@
   import type { Snippet } from 'svelte';
   import KitMark from './KitMark.svelte';
   import ThemeToggle from './ThemeToggle.svelte';
+  import { KIT_MESSAGES, type KitLocale } from './messages';
   import { HOME_URL, ORG_URL, getProduct, products, type NavLink, type ProductId } from './products';
 
   type Props = {
@@ -13,9 +14,14 @@
     links: NavLink[];
     /** The site's own search control; search indexes are per site, so the shell has none. */
     search?: Snippet;
+    /** The page's language for the shell's own words; English by default. */
+    locale?: KitLocale;
   };
 
-  const { product, links, search }: Props = $props();
+  const { product, links, search, locale = 'en' }: Props = $props();
+  const m = $derived(KIT_MESSAGES[locale]);
+  // This site's home in the page's language; other sites are linked as they are.
+  const home = $derived(locale === 'en' ? `${base}/` : `${base}/${locale}`);
 
   const current = $derived(product ? getProduct(product) : undefined);
   const hrefOf = (link: NavLink): string => ('href' in link ? link.href : `${base}${link.path}`);
@@ -66,21 +72,21 @@
 <header class="kit-header" class:has-product={current !== undefined} data-pagefind-ignore>
   <div class="inner">
     <div class="brand">
-      <a href={current ? HOME_URL : `${base}/`} class="brand-home">
+      <a href={current ? HOME_URL : home} class="brand-home">
         <KitMark front={product} />
         <span class="brand-name">Office Kit</span>
       </a>
       {#if current}
         <span class="brand-slash" aria-hidden="true">/</span>
         <div class="switcher" bind:this={switcherEl}>
-          <a href="{base}/" class="switcher-home">{current.id}</a>
+          <a href={home} class="switcher-home">{current.id}</a>
           <button
             type="button"
             class="switcher-btn"
             aria-haspopup="true"
             aria-expanded={switcherOpen}
             aria-controls="kit-product-menu"
-            aria-label="Switch library"
+            aria-label={m.switchLibrary}
             onclick={() => (switcherOpen = !switcherOpen)}
           >
             <svg width="10" height="10" viewBox="0 0 10 10" aria-hidden="true">
@@ -93,14 +99,14 @@
                 {@const here = p.id === current.id}
                 <li>
                   <a
-                    href={here ? `${base}/` : p.href}
+                    href={here ? home : p.href}
                     data-product={p.id}
                     aria-current={here ? 'true' : undefined}
                   >
                     <span class="swatch" aria-hidden="true"></span>
                     <span class="product-text">
                       <span class="product-name">{p.id}</span>
-                      <span class="product-app">{p.app} files</span>
+                      <span class="product-app">{m.files(p.app)}</span>
                     </span>
                   </a>
                 </li>
@@ -111,7 +117,7 @@
       {/if}
     </div>
 
-    <nav class="nav" aria-label="Main">
+    <nav class="nav" aria-label={m.mainNav}>
       {#each links as link (link.label)}
         <a href={hrefOf(link)} class="nav-link" aria-current={isActive(link) ? 'page' : undefined}>
           {link.label}
@@ -121,11 +127,11 @@
 
     <div class="tools">
       {@render search?.()}
-      <ThemeToggle />
+      <ThemeToggle {locale} />
       <a
         class="icon-btn"
         href={current?.repo ?? ORG_URL}
-        aria-label="{current?.pkg ?? 'Office Kit'} on GitHub"
+        aria-label={m.onGitHub(current?.pkg ?? 'Office Kit')}
       >
         <svg width="20" height="20" viewBox="0 0 24 24" aria-hidden="true" fill="currentColor">
           <path
@@ -138,7 +144,7 @@
         class="icon-btn menu-btn"
         aria-expanded={menuOpen}
         aria-controls="kit-mobile-menu"
-        aria-label={menuOpen ? 'Close menu' : 'Open menu'}
+        aria-label={menuOpen ? m.closeMenu : m.openMenu}
         onclick={() => (menuOpen = !menuOpen)}
       >
         <svg width="20" height="20" viewBox="0 0 20 20" aria-hidden="true">
@@ -154,26 +160,26 @@
 
   {#if menuOpen}
     <div id="kit-mobile-menu" class="mobile-menu">
-      <nav aria-label="Main">
+      <nav aria-label={m.mainNav}>
         {#each links as link (link.label)}
           <a href={hrefOf(link)} aria-current={isActive(link) ? 'page' : undefined}>
             {link.label}
           </a>
         {/each}
       </nav>
-      <p class="mobile-heading">Office Kit libraries</p>
+      <p class="mobile-heading">{m.allLibraries}</p>
       <ul class="mobile-products">
         {#each products as p (p.id)}
           {@const here = p.id === product}
           <li>
             <a
-              href={here ? `${base}/` : p.href}
+              href={here ? home : p.href}
               data-product={p.id}
               aria-current={here ? 'true' : undefined}
             >
               <span class="swatch" aria-hidden="true"></span>
               <span class="product-name">{p.id}</span>
-              <span class="product-app">{p.app} files</span>
+              <span class="product-app">{m.files(p.app)}</span>
             </a>
           </li>
         {/each}
