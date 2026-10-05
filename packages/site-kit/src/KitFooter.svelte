@@ -1,6 +1,7 @@
 <script lang="ts">
   import { base } from '$app/paths';
   import KitMark from './KitMark.svelte';
+  import { KIT_MESSAGES, type KitLocale } from './messages';
   import { ORG_URL, getProduct, products, type NavLink, type ProductId } from './products';
 
   type Props = {
@@ -8,9 +9,13 @@
     product?: ProductId;
     /** Links for the product's own column; ignored when there is no product. */
     links?: NavLink[];
+    /** The page's language for the shell's own words; English by default. */
+    locale?: KitLocale;
   };
 
-  const { product, links = [] }: Props = $props();
+  const { product, links = [], locale = 'en' }: Props = $props();
+  const m = $derived(KIT_MESSAGES[locale]);
+  const home = $derived(locale === 'en' ? `${base}/` : `${base}/${locale}`);
 
   const current = $derived(product ? getProduct(product) : undefined);
   const hrefOf = (link: NavLink): string => ('href' in link ? link.href : `${base}${link.path}`);
@@ -23,39 +28,36 @@
         <KitMark front={product} size={24} />
         Office Kit
       </span>
-      <p>
-        TypeScript libraries for Office files. MIT licensed, no native modules, one ESM build for
-        Node and the browser.
-      </p>
+      <p>{m.blurb}</p>
     </div>
 
     {#if current}
-      <nav class="col" aria-label="{current.id} site">
+      <nav class="col" aria-label={m.siteNav(current.id)}>
         <h2>{current.id}</h2>
         <ul>
           {#each links as link (link.label)}
             <li><a href={hrefOf(link)}>{link.label}</a></li>
           {/each}
-          <li><a href="{current.repo}/blob/main/CHANGELOG.md">Changelog</a></li>
+          <li><a href="{current.repo}/blob/main/CHANGELOG.md">{m.changelog}</a></li>
         </ul>
       </nav>
     {/if}
 
-    <nav class="col" aria-label="Office Kit libraries">
-      <h2>Libraries</h2>
+    <nav class="col" aria-label={m.allLibraries}>
+      <h2>{m.libraries}</h2>
       <ul>
         {#each products as p (p.id)}
           <li>
-            <a href={p.id === product ? `${base}/` : p.href}>{p.pkg}</a>
+            <a href={p.id === product ? home : p.href}>{p.pkg}</a>
           </li>
         {/each}
-        <li><a href={ORG_URL}>GitHub organization</a></li>
+        <li><a href={ORG_URL}>{m.githubOrg}</a></li>
       </ul>
     </nav>
 
     {#if current}
-      <nav class="col" aria-label="For AI agents">
-        <h2>For AI agents</h2>
+      <nav class="col" aria-label={m.forAgents}>
+        <h2>{m.forAgents}</h2>
         <ul>
           <li><a href="{base}/llms.txt">llms.txt</a></li>
           <li><a href="{base}/llms-full.txt">llms-full.txt</a></li>

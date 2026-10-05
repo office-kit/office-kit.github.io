@@ -76,3 +76,16 @@ link current) or `{ label, href }` for anywhere else.
 
 The home page uses the same components with no `product`: the accent is then
 the neutral ink colour, and the header shows no product chip.
+
+### Translated sites
+
+The shell's own words (the footer blurb, "Libraries", the switcher and menu
+labels, the install button) come in English and Japanese. A translated site
+passes its page's language as `locale` to `KitHeader`, `KitFooter`,
+`FamilyGrid` and `InstallCommand`. That also points the links to this site's
+home at `/<locale>`. Without `locale` everything stays English.
+
+```svelte
+<KitHeader product="docx" {links} locale={pageLocale}>…</KitHeader>
+<KitFooter product="docx" {links} locale={pageLocale} />
+```

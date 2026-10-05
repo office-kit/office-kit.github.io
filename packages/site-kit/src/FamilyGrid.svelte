@@ -1,13 +1,18 @@
 <script lang="ts">
   import { base } from '$app/paths';
+  import { KIT_MESSAGES, type KitLocale } from './messages';
   import { products, type ProductId } from './products';
 
   type Props = {
     /** The product this site documents. Omit it on the family home page. */
     product?: ProductId;
+    /** The page's language for the shell's own words; English by default. */
+    locale?: KitLocale;
   };
 
-  const { product }: Props = $props();
+  const { product, locale = 'en' }: Props = $props();
+  const m = $derived(KIT_MESSAGES[locale]);
+  const home = $derived(locale === 'en' ? `${base}/` : `${base}/${locale}`);
 </script>
 
 <!-- The three libraries side by side. Each cell takes its own product accent,
@@ -16,11 +21,11 @@
   {#each products as p (p.id)}
     {@const current = p.id === product}
     <li data-product={p.id}>
-      <a href={current ? `${base}/` : p.href} aria-current={current ? 'true' : undefined}>
+      <a href={current ? home : p.href} aria-current={current ? 'true' : undefined}>
         <span class="ext">.{p.id}</span>
         <span class="pkg">{p.pkg}</span>
-        <span class="summary">{p.app} files. {p.summary}</span>
-        <span class="state">{current ? 'You are here' : `Open the ${p.id} site`}</span>
+        <span class="summary">{m.listing(p)}</span>
+        <span class="state">{current ? m.youAreHere : m.openSite(p.id)}</span>
       </a>
     </li>
   {/each}

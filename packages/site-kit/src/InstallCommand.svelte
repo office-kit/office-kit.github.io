@@ -1,10 +1,15 @@
 <script lang="ts">
+  import { KIT_MESSAGES, type KitLocale } from './messages';
+
   type Props = {
     /** npm package name to install. */
     pkg: string;
+    /** The page's language for the shell's own words; English by default. */
+    locale?: KitLocale;
   };
 
-  const { pkg }: Props = $props();
+  const { pkg, locale = 'en' }: Props = $props();
+  const m = $derived(KIT_MESSAGES[locale]);
 
   const command = $derived(`npm i ${pkg}`);
 
@@ -24,11 +29,11 @@
   }
 </script>
 
-<button type="button" class="install" onclick={copy} aria-label="Copy the install command: {command}">
+<button type="button" class="install" onclick={copy} aria-label={m.copyCommand(command)}>
   <span class="prompt" aria-hidden="true">$</span>
   <code>{command}</code>
   <span class="state" aria-live="polite">
-    {#if status === 'copied'}Copied{:else if status === 'failed'}Press ⌘C{:else}Copy{/if}
+    {#if status === 'copied'}{m.copied}{:else if status === 'failed'}{m.pressCopy}{:else}{m.copy}{/if}
   </span>
 </button>
 
