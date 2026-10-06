@@ -10,9 +10,9 @@
   const { front = 'pptx', size = 26 }: Props = $props();
 
   const FILL: Record<ProductId, string> = {
-    pptx: '#e5481f',
-    xlsx: '#168a4f',
-    docx: '#2b63d9',
+    pptx: '#d6336c',
+    xlsx: '#0f8a8a',
+    docx: '#6741d9',
   };
 
   // Back-to-front paint order, ending on the product this site documents.
