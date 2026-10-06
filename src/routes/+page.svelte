@@ -57,12 +57,12 @@
             <svg viewBox="0 0 320 200" role="img" aria-label="A miniature {p.app} file">
               {#if p.id === 'pptx'}
                 <rect x="16" y="19" width="288" height="162" rx="3" fill="#fff" />
-                <rect x="36" y="38" width="5" height="26" fill="#e5481f" />
+                <rect x="36" y="38" width="5" height="26" fill="#d6336c" />
                 <rect x="50" y="40" width="150" height="10" rx="2" fill="#15171c" />
                 <rect x="50" y="56" width="88" height="6" rx="2" fill="#c9cdd6" />
                 <path d="M40 160.5h240" stroke="#c9cdd6" />
                 {#each [44, 62, 80, 98] as h, i (i)}
-                  <rect x={58 + i * 58} y={160 - h} width="22" height={h} fill="#e5481f" />
+                  <rect x={58 + i * 58} y={160 - h} width="22" height={h} fill="#d6336c" />
                   <rect x={82 + i * 58} y={160 - h * 0.55} width="22" height={h * 0.55} fill="#c9cdd6" />
                 {/each}
               {:else if p.id === 'xlsx'}
@@ -79,19 +79,19 @@
                   <rect x="56" y={61 + r * 18} width={[40, 32, 46, 28, 38][r]} height="6" rx="2" fill="#15171c" />
                   <rect x={[150, 140, 146, 154, 142][r]} y={61 + r * 18} width={[18, 28, 22, 14, 26][r]} height="6" rx="2" fill="#9aa0ad" />
                 {/each}
-                <rect x="56" y="43" width="34" height="6" rx="2" fill="#168a4f" />
-                <rect x="134" y="43" width="34" height="6" rx="2" fill="#168a4f" />
-                <rect x="176.5" y="91.5" width="64" height="18" fill="none" stroke="#168a4f" stroke-width="2" />
-                <rect x="237" y="106" width="6" height="6" fill="#168a4f" stroke="#fff" />
+                <rect x="56" y="43" width="34" height="6" rx="2" fill="#0f8a8a" />
+                <rect x="134" y="43" width="34" height="6" rx="2" fill="#0f8a8a" />
+                <rect x="176.5" y="91.5" width="64" height="18" fill="none" stroke="#0f8a8a" stroke-width="2" />
+                <rect x="237" y="106" width="6" height="6" fill="#0f8a8a" stroke="#fff" />
               {:else}
                 <rect x="94" y="12" width="132" height="176" rx="3" fill="#fff" />
                 <rect x="112" y="32" width="70" height="9" rx="2" fill="#15171c" />
-                <rect x="112" y="47" width="28" height="3" rx="1.5" fill="#2b63d9" />
+                <rect x="112" y="47" width="28" height="3" rx="1.5" fill="#6741d9" />
                 {#each [62, 71, 80, 89] as y, i (y)}
                   <rect x="112" y={y} width={[96, 92, 96, 60][i]} height="4" rx="2" fill="#c9cdd6" />
                 {/each}
                 {#each [106, 116, 126] as y, i (y)}
-                  <circle cx="115" cy={y + 2} r="2" fill="#2b63d9" />
+                  <circle cx="115" cy={y + 2} r="2" fill="#6741d9" />
                   <rect x="122" y={y} width={[70, 82, 56][i]} height="4" rx="2" fill="#c9cdd6" />
                 {/each}
                 <rect x="112.5" y="142.5" width="96" height="30" fill="none" stroke="#c9cdd6" />

@@ -52,23 +52,23 @@
 }
 
 [data-product='pptx'] {
-  --accent: #e5481f;
-  --accent-ink: #bf3610;
-  --accent-wash: #fdeee8;
+  --accent: #d6336c;
+  --accent-ink: #b4235a;
+  --accent-wash: #fdebf1;
   --on-accent: #ffffff;
 }
 
 [data-product='xlsx'] {
-  --accent: #168a4f;
-  --accent-ink: #11703f;
-  --accent-wash: #e6f4ec;
+  --accent: #0f8a8a;
+  --accent-ink: #0b6e6e;
+  --accent-wash: #e4f4f4;
   --on-accent: #ffffff;
 }
 
 [data-product='docx'] {
-  --accent: #2b63d9;
-  --accent-ink: #2453b8;
-  --accent-wash: #e9effc;
+  --accent: #6741d9;
+  --accent-ink: #5a34c4;
+  --accent-wash: #efeafc;
   --on-accent: #ffffff;
 }
 
@@ -96,25 +96,25 @@
 
 :root[data-theme='dark'][data-product='pptx'],
 :root[data-theme='dark'] [data-product='pptx'] {
-  --accent: #e5481f;
-  --accent-ink: #ff7a52;
-  --accent-wash: #2a1710;
+  --accent: #d6336c;
+  --accent-ink: #ff7aa8;
+  --accent-wash: #2c1420;
   --on-accent: #ffffff;
 }
 
 :root[data-theme='dark'][data-product='xlsx'],
 :root[data-theme='dark'] [data-product='xlsx'] {
-  --accent: #168a4f;
-  --accent-ink: #4cc98a;
-  --accent-wash: #0f241a;
+  --accent: #0f8a8a;
+  --accent-ink: #4fd1cb;
+  --accent-wash: #0d2424;
   --on-accent: #ffffff;
 }
 
 :root[data-theme='dark'][data-product='docx'],
 :root[data-theme='dark'] [data-product='docx'] {
-  --accent: #2b63d9;
-  --accent-ink: #7da6ff;
-  --accent-wash: #121c33;
+  --accent: #6741d9;
+  --accent-ink: #ad94ff;
+  --accent-wash: #1c1636;
   --on-accent: #ffffff;
 }
 
@@ -139,25 +139,25 @@
 
   :root:not([data-theme='light'])[data-product='pptx'],
   :root:not([data-theme='light']) [data-product='pptx'] {
-    --accent: #e5481f;
-    --accent-ink: #ff7a52;
-    --accent-wash: #2a1710;
+    --accent: #d6336c;
+    --accent-ink: #ff7aa8;
+    --accent-wash: #2c1420;
     --on-accent: #ffffff;
   }
 
   :root:not([data-theme='light'])[data-product='xlsx'],
   :root:not([data-theme='light']) [data-product='xlsx'] {
-    --accent: #168a4f;
-    --accent-ink: #4cc98a;
-    --accent-wash: #0f241a;
+    --accent: #0f8a8a;
+    --accent-ink: #4fd1cb;
+    --accent-wash: #0d2424;
     --on-accent: #ffffff;
   }
 
   :root:not([data-theme='light'])[data-product='docx'],
   :root:not([data-theme='light']) [data-product='docx'] {
-    --accent: #2b63d9;
-    --accent-ink: #7da6ff;
-    --accent-wash: #121c33;
+    --accent: #6741d9;
+    --accent-ink: #ad94ff;
+    --accent-wash: #1c1636;
     --on-accent: #ffffff;
   }
 }
