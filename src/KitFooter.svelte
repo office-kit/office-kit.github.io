@@ -65,6 +65,7 @@
       </nav>
     {/if}
   </div>
+  <p class="frame trademarks">{m.trademarks}</p>
 </footer>
 
 <style>
@@ -121,6 +122,13 @@
     color: var(--ink);
     font-size: 0.94rem;
     overflow-wrap: anywhere;
+  }
+
+  .trademarks {
+    margin: 0;
+    padding: 0 var(--gutter) 2rem;
+    color: var(--ink-3);
+    font-size: 0.8rem;
   }
 
   @media (max-width: 860px) {
