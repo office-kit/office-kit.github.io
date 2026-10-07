@@ -22,6 +22,8 @@ export type KitMessages = {
   changelog: string;
   githubOrg: string;
   forAgents: string;
+  /** Says the family is independent of the company whose formats it reads. */
+  trademarks: string;
   copyCommand: (command: string) => string;
   copy: string;
   copied: string;
@@ -56,6 +58,8 @@ export const KIT_MESSAGES: Readonly<Record<KitLocale, KitMessages>> = {
     changelog: 'Changelog',
     githubOrg: 'GitHub organization',
     forAgents: 'For AI agents',
+    trademarks:
+      'Microsoft, Word, Excel and PowerPoint are trademarks of the Microsoft group of companies. Office Kit is an independent project, not affiliated with or endorsed by Microsoft.',
     copyCommand: (command) => `Copy the install command: ${command}`,
     copy: 'Copy',
     copied: 'Copied',
@@ -81,6 +85,8 @@ export const KIT_MESSAGES: Readonly<Record<KitLocale, KitMessages>> = {
     changelog: '変更履歴',
     githubOrg: 'GitHub Organization',
     forAgents: 'AI エージェント向け',
+    trademarks:
+      'Microsoft、Word、Excel、PowerPoint は Microsoft グループの商標です。Office Kit は Microsoft とは関係のない独立したプロジェクトで、同社の承認を受けたものではありません。',
     copyCommand: (command) => `インストールコマンドをコピー: ${command}`,
     copy: 'コピー',
     copied: 'コピーしました',
